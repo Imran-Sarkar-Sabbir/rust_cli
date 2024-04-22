@@ -1,0 +1,56 @@
+{
+  "pattern": {
+    "email": "EMAIL_PATTERN",
+    "mobile": "MOBILE_PATTERN"
+  },
+  "data_types": {
+    "string": {
+      "type": "string",
+      "required": true,
+      "min": 1,
+      "col": 6
+    },
+    "string_optional": {
+      "type": "string",
+      "required": false,
+      "col": 6
+    },
+    "text": {
+      "type": "string",
+      "required": true,
+      "min": 1,
+      "row": 4,
+      "col": 6
+    },
+    "text_optional": {
+      "type": "string",
+      "required": false,
+      "row": 4,
+      "col": 6
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "pattern": "email",
+      "col": 6
+    },
+    "email_optional": {
+      "type": "string",
+      "required": false,
+      "pattern": "email",
+      "col": 6
+    },
+    "mobile": {
+      "type": "string",
+      "required": true,
+      "pattern": "mobile",
+      "col": 6
+    },
+    "mobile_optional": {
+      "type": "string",
+      "required": false,
+      "pattern": "mobile",
+      "col": 6
+    }
+  }
+}

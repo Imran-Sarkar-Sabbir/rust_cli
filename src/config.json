@@ -1,0 +1,12 @@
+{
+  "name": "Author",
+  "properties": {
+    "name": {
+      "value": {
+        "type": "default:string",
+        "max": 255
+      },
+      "message_key": "common.author"
+    }
+  }
+}
