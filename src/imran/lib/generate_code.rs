@@ -5,6 +5,5 @@ pub fn generate_code() {
     let default_config_json = read_json_file("default.json".to_string());
     let config_json = read_json_file("config.json".to_string());
 
-    DefaultConfig::from_map(default_config_json);
-
+    let default_config = DefaultConfig::from_map(default_config_json);
 }
