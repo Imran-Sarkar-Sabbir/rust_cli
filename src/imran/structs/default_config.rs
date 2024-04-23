@@ -1,21 +1,17 @@
-use std::collections::HashMap;
-
-use serde_json::{Map, Value};
-
 use crate::imran::structs::data_type::DataType;
+use serde_json::{Map, Value};
+use std::collections::HashMap;
 
 #[derive(Debug)]
 pub struct DefaultConfig {
-    pattern: HashMap<String, String>,
-    data_types: HashMap<String, DataType>,
+    pub pattern: HashMap<String, String>,
+    pub data_types: HashMap<String, DataType>,
 }
 
 impl DefaultConfig {
     pub fn from_map(default_config: Map<String, Value>) -> DefaultConfig {
         let mut pattern: HashMap<String, String> = HashMap::new();
         let mut data_types: HashMap<String, DataType> = HashMap::new();
-
-        println!("from_map called");
 
         match default_config.get("pattern") {
             Some(json_pattern) => {
@@ -34,7 +30,6 @@ impl DefaultConfig {
                 }
             }
         };
-        println!("{:?}", data_types);
         DefaultConfig {
             pattern: pattern,
             data_types: data_types,

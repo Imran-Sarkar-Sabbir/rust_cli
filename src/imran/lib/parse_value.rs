@@ -20,3 +20,13 @@ pub fn parse_bool(json_data: &Map<String, Value>, key: &str) -> Option<bool> {
         None => None,
     }
 }
+
+pub fn parse_obj<'a>(
+    json_data: &'a Map<String, Value>,
+    key: &'a str,
+) -> Option<&'a Map<String, Value>> {
+    match json_data.get(key) {
+        Some(value) => return value.as_object(),
+        None => None,
+    }
+}
