@@ -3,20 +3,21 @@ use std::collections::HashMap;
 use serde_json::{Map, Value};
 
 use crate::imran::lib::parse_value::{parse_bool, parse_number, parse_obj, parse_string};
+use crate::imran::structs::name::Name;
 
 use super::{data_type::DataType, default_config::DefaultConfig, property::Property};
 
 #[derive(Debug)]
 pub struct Config {
-    pub name: String,
+    pub name: Name,
     pub pattern: HashMap<String, String>,
     pub properties: HashMap<String, Property>,
 }
 
 impl Config {
     pub fn from_json(default_config: DefaultConfig, config: Map<String, Value>) -> Config {
-        let name = parse_string(&config, "name").unwrap().to_string();
-        let mut pattern= default_config.pattern;
+        let name = parse_obj(&config, "name").unwrap();
+
         let mut properties: HashMap<String, Property> = HashMap::new();
 
         match config.get("properties") {
@@ -31,6 +32,7 @@ impl Config {
             None => {}
         }
 
+        let mut pattern = default_config.pattern;
         match config.get("pattern") {
             Some(json_pattern) => {
                 for (key, val) in json_pattern.as_object().unwrap().iter() {
@@ -41,7 +43,7 @@ impl Config {
         }
 
         Config {
-            name,
+            name: Name::from_json(name),
             properties,
             pattern,
         }

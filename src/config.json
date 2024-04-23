@@ -1,5 +1,11 @@
 {
-  "name": "Author",
+  "name": {
+    "upper": "AUTHOR",
+    "capital": "Author",
+    "camel": "author",
+    "snake": "author",
+    "kabeb": "author"
+  },
   "pattern": {
   },
   "properties": {
