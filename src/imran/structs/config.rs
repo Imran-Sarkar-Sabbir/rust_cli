@@ -1,17 +1,22 @@
-use super::{data_type::DataType, default_config::DefaultConfig, property::Property};
-use crate::imran::lib::parse_value::{parse_obj, parse_string};
-use serde_json::{Map, Value};
 use std::collections::HashMap;
+
+use serde_json::{Map, Value};
+
+use crate::imran::lib::parse_value::{parse_bool, parse_number, parse_obj, parse_string};
+
+use super::{data_type::DataType, default_config::DefaultConfig, property::Property};
 
 #[derive(Debug)]
 pub struct Config {
     pub name: String,
+    pub pattern: HashMap<String, String>,
     pub properties: HashMap<String, Property>,
 }
 
 impl Config {
     pub fn from_json(default_config: DefaultConfig, config: Map<String, Value>) -> Config {
         let name = parse_string(&config, "name").unwrap().to_string();
+        let mut pattern= default_config.pattern;
         let mut properties: HashMap<String, Property> = HashMap::new();
 
         match config.get("properties") {
@@ -26,9 +31,19 @@ impl Config {
             None => {}
         }
 
+        match config.get("pattern") {
+            Some(json_pattern) => {
+                for (key, val) in json_pattern.as_object().unwrap().iter() {
+                    pattern.insert(key.clone(), val.as_str().unwrap().to_string());
+                }
+            }
+            None => {}
+        }
+
         Config {
-            name: name,
-            properties: properties,
+            name,
+            properties,
+            pattern,
         }
     }
 }
@@ -38,9 +53,9 @@ fn merge_default_properties(
     default_config: &DefaultConfig,
 ) -> Property {
     let value_config = parse_obj(prop_config, "value").unwrap();
-    let data_type = parse_string(value_config, "type").unwrap();
+    let type_ops = parse_string(value_config, "type").unwrap();
 
-    let splits = data_type.split("default:");
+    let splits = type_ops.split("default:");
     let types: Vec<&str> = splits.collect();
     let mut data_type = DataType::new();
 
@@ -49,6 +64,45 @@ fn merge_default_properties(
         data_type.copy_from(default_value);
     } else {
         data_type.d_type = types[0].to_string();
+    }
+
+    match parse_bool(value_config, "required") {
+        None => {}
+        Some(res) => {
+            data_type.required = res;
+        }
+    }
+
+    let opt = parse_number(value_config, "min");
+    match opt {
+        None => {}
+        Some(_) => {
+            data_type.min = opt;
+        }
+    }
+
+    let opt = parse_number(value_config, "max");
+    match opt {
+        None => {}
+        Some(_) => {
+            data_type.max = opt;
+        }
+    }
+
+    let opt = parse_number(value_config, "row");
+    match opt {
+        None => {}
+        Some(_) => {
+            data_type.row = opt;
+        }
+    }
+
+    let opt = parse_number(value_config, "col");
+    match opt {
+        None => {}
+        Some(_) => {
+            data_type.col = opt;
+        }
     }
 
     Property {

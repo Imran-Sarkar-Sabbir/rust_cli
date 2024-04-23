@@ -12,6 +12,7 @@ pub struct DataType {
     pub max: Option<i64>,
     pub col: Option<i64>,
     pub row: Option<i64>,
+    pub default: Option<Value>,
 }
 
 impl DataType {
@@ -23,6 +24,7 @@ impl DataType {
             max: None,
             col: None,
             row: None,
+            default: None
         }
     }
 
@@ -33,9 +35,18 @@ impl DataType {
         self.max = other.max;
         self.col = other.col;
         self.row = other.row;
+        self.default = other.default.clone();
     }
 
     pub fn from_json(json_data: &Map<String, Value>) -> DataType {
+        let v= json_data.get("default").clone();
+        let mut default_val = None;
+        match v {
+            None => {}
+            Some(res) => {
+                default_val = Some(res.clone());
+            }
+        }
         DataType {
             d_type: parse_string(json_data, "type").unwrap().to_string(),
             required: parse_bool(json_data, "required").unwrap(),
@@ -43,6 +54,7 @@ impl DataType {
             max: parse_number(json_data, "max"),
             col: parse_number(json_data, "col"),
             row: parse_number(json_data, "row"),
+            default: default_val,
         }
     }
 }

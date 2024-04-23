@@ -8,7 +8,8 @@
       "type": "string",
       "required": true,
       "min": 1,
-      "col": 6
+      "col": 6,
+      "default": ""
     },
     "string_optional": {
       "type": "string",

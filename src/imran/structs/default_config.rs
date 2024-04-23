@@ -31,8 +31,8 @@ impl DefaultConfig {
             }
         };
         DefaultConfig {
-            pattern: pattern,
-            data_types: data_types,
+            pattern,
+            data_types,
         }
     }
 }
