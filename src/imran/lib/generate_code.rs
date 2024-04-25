@@ -1,3 +1,4 @@
+use crate::imran::lib::code_gen::generate_page::generate_page;
 use crate::imran::lib::read_json::read_json_file;
 use crate::imran::structs::config::Config;
 use crate::imran::structs::default_config::DefaultConfig;
@@ -11,5 +12,5 @@ fn read_config() -> Config {
 
 pub fn generate_code() {
     let config = read_config();
-    print!("{:?}", config);
+    generate_page(&config);
 }

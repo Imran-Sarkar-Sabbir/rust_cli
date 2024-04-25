@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use serde_json::{Map, Value};
 
 use crate::imran::lib::parse_value::{parse_bool, parse_number, parse_obj, parse_string};
+use crate::imran::structs::data_type::match_type;
 use crate::imran::structs::name::Name;
 
 use super::{data_type::DataType, default_config::DefaultConfig, property::Property};
@@ -65,7 +66,7 @@ fn merge_default_properties(
         let default_value: &DataType = &default_config.data_types[types[1]];
         data_type.copy_from(default_value);
     } else {
-        data_type.d_type = types[0].to_string();
+        data_type.d_type = match_type(types[0])
     }
 
     match parse_bool(value_config, "required") {

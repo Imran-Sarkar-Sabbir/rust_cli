@@ -3,11 +3,11 @@ use serde_json::{Map, Value};
 use crate::imran::lib::parse_value::parse_string;
 #[derive(Debug)]
 pub struct Name {
-    upper: String,
-    capital: String,
-    camel: String,
-    snake: String,
-    kabeb: String,
+    pub upper: String,
+    pub capital: String,
+    pub camel: String,
+    pub snake: String,
+    pub kabeb: String,
 }
 
 impl Name {

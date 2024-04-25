@@ -1,20 +1,27 @@
 {
   "name": {
-    "upper": "AUTHOR",
-    "capital": "Author",
-    "camel": "author",
-    "snake": "author",
-    "kabeb": "author"
+    "upper": "CLUSTER",
+    "capital": "Cluster",
+    "camel": "cluster",
+    "snake": "cluster",
+    "kabeb": "cluster"
   },
   "pattern": {
   },
   "properties": {
-    "name": {
+    "name_bn": {
       "value": {
         "type": "default:string",
         "max": 255
       },
-      "message_key": "common.author"
+      "message_key": "common.name_bn"
+    },
+    "name_en": {
+      "value": {
+        "type": "default:string",
+        "max": 255
+      },
+      "message_key": "common.name_en"
     }
   }
 }
