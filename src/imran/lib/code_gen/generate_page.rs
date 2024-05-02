@@ -1,7 +1,7 @@
 use crate::imran::structs::config::Config;
 use crate::imran::structs::data_type::Type;
 
-const PROPERTIES_TEMP: &str = r#"
+const COLUMN_TEMP: &str = r#"
       {
             id: '[[name]]',
              cell: processCellLimitedString('[[name]]'),
@@ -10,15 +10,15 @@ const PROPERTIES_TEMP: &str = r#"
              header: messages['[[message_key]]'],
       }"#;
 
-fn get_properties(config: &Config) -> Vec<String> {
-    let mut properties: Vec<String> = vec![];
+fn get_columns(config: &Config) -> Vec<String> {
+    let mut columns: Vec<String> = vec![];
     for (key, data_type) in config.properties.iter() {
         match data_type.value.d_type {
             Type::string | Type::number => {
-                let property =
-                    PROPERTIES_TEMP.replace("[[name]]", key)
+                let column =
+                    COLUMN_TEMP.replace("[[name]]", key)
                         .replace("[[message_key]]", &data_type.message_key);
-                properties.push(property);
+                columns.push(column);
             }
             Type::select => {}
             Type::checkbox => {}
@@ -28,45 +28,43 @@ fn get_properties(config: &Config) -> Vec<String> {
             }
         }
     }
-    properties
+    columns
 }
 
-pub fn generate_page(config: &Config) {
-    let properties = get_properties(config).join(",");
-    let my_code = TEMPLATE.replace("[[capital]]", &config.name.capital)
+pub fn generate_page(config: &Config) -> String {
+    let properties = get_columns(config).join(",");
+     TEMPLATE.replace("[[capital]]", &config.name.capital)
         .replace("[[upper]]", &config.name.upper)
         .replace("[[camel]]", &config.name.camel)
         .replace("[[snake]]", &config.name.snake)
-        .replace("[[properties]]", &properties);
-
-    println!("{my_code}");
+        .replace("[[columns]]", &properties)
 }
 
 const TEMPLATE: &str = r#"
-
 import React, {useCallback, useMemo, useState} from 'react';
 
 import {useIntl} from 'react-intl';
 
-import IntlMessages from '@/@softbd/utility-components/IntlMessages';
-import PageBlock from '@/@softbd/components/PageBlock';
-import AddButton from '@/@softbd/elements/button/AddButton/AddButton';
-import DatatableButtonGroup from '@/@softbd/components/DataTable/components/DatatableButtonGroup/DatatableButtonGroup';
-import useNotiStack from '@/@softbd/hooks/useNotifyStack';
-import IconSkill from '@/@softbd/icons/IconSkill';
-import {DatatableFilters} from '@/@softbd/utilities/enums/DataTableFilterEnums';
+import IntlMessages from '../../../@softbd/utility-components/IntlMessages';
+import PageBlock from '../../../@softbd/components/PageBlock';
+import AddButton from '../../../@softbd/elements/button/AddButton/AddButton';
+import DatatableButtonGroup from '../../../@softbd/components/DataTable/components/DatatableButtonGroup/DatatableButtonGroup';
+import useNotiStack from '../../../@softbd/hooks/useNotifyStack';
+import IconSkill from '../../../@softbd/icons/IconSkill';
+import {DatatableFilters} from '../../../@softbd/utilities/enums/DataTableFilterEnums';
 import {
-  isResponseSuccess,
-  processCellLimitedString,
-} from '@/@softbd/utilities/helpers';
-import {permissions} from '@/@softbd/contexts/AllPermissionKeys';
-import useCheckPermissions from '@/@softbd/contexts/useCheckPermissions';
-import DataTable from '@/@softbd/components/DataTable/Datatable';
-import DatatableEditButton from '@/@softbd/components/DataTable/components/buttons/DatatableEditButton';
-import DatatableDeleteButton from '@/@softbd/components/DataTable/components/buttons/DatatableDeleteButton';
-import useDataTableFetchData from '@/@softbd/hooks/useDataTableFetchData';
-import {apiRoutes} from '@/@softbd/common/api-routes';
-import DatatableReadButton from '@/@softbd/components/DataTable/components/buttons/DatatableReadButton';
+    isResponseSuccess,
+    processCellLimitedString,
+} from '../../../@softbd/utilities/helpers';
+import {permissions} from '../../../@softbd/contexts/AllPermissionKeys';
+import useCheckPermissions from '../../../@softbd/contexts/useCheckPermissions';
+import DataTable from '../../../@softbd/components/DataTable/Datatable';
+import DatatableEditButton from '../../../@softbd/components/DataTable/components/buttons/DatatableEditButton';
+import DatatableDeleteButton from '../../../@softbd/components/DataTable/components/buttons/DatatableDeleteButton';
+import useDataTableFetchData from '../../../@softbd/hooks/useDataTableFetchData';
+import {apiRoutes} from '../../../@softbd/common/api-routes';
+import DatatableReadButton from '../../../@softbd/components/DataTable/components/buttons/DatatableReadButton';
+
 import [[capital]]AddEditPopup from './[[capital]]AddEditPopup';
 import [[capital]]DetailsPopup from './[[capital]]DetailsPopup';
 import {delete[[capital]]} from "@/services/[[camel]]Management/[[camel]]Service";
@@ -133,7 +131,7 @@ const [[capital]]Page = () => {
     }
   };
   const columns = useMemo(
-    () => [[[properties]],
+    () => [[[columns]],
       {
         id: 'actions',
         enableColumnFilter: false,

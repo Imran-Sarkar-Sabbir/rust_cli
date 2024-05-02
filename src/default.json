@@ -8,17 +8,20 @@
       "type": "string",
       "required": true,
       "min": 1,
+      "max": 255,
       "col": 6,
       "default": ""
     },
     "string_optional": {
       "type": "string",
       "required": false,
+      "max": 255,
       "col": 6
     },
     "text": {
       "type": "string",
       "required": true,
+      "max": 5000,
       "min": 1,
       "row": 4,
       "col": 6
@@ -27,31 +30,44 @@
       "type": "string",
       "required": false,
       "row": 4,
-      "col": 6
+      "col": 6,
+      "max": 5000
+    },
+    "number": {
+      "type": "number",
+      "required": true
+    },
+    "number_optional": {
+      "type": "number",
+      "required": false
     },
     "email": {
       "type": "string",
       "required": true,
       "pattern": "email",
-      "col": 6
+      "col": 6,
+      "max": 255
     },
     "email_optional": {
       "type": "string",
       "required": false,
       "pattern": "email",
-      "col": 6
+      "col": 6,
+      "max": 255
     },
     "mobile": {
       "type": "string",
       "required": true,
       "pattern": "mobile",
-      "col": 6
+      "col": 6,
+      "max": 50
     },
     "mobile_optional": {
       "type": "string",
       "required": false,
       "pattern": "mobile",
-      "col": 6
+      "col": 6,
+      "max": 50
     }
   }
 }

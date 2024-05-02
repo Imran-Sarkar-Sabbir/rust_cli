@@ -1,27 +1,151 @@
 {
   "name": {
-    "upper": "CLUSTER",
-    "capital": "Cluster",
-    "camel": "cluster",
-    "snake": "cluster",
-    "kabeb": "cluster"
+    "upper": "OFFICER",
+    "capital": "Officer",
+    "camel": "officer",
+    "snake": "officer",
+    "kabeb": "officer"
   },
   "pattern": {
   },
   "properties": {
+    "serial_no": {
+      "value": {
+        "type": "default:number_optional"
+      },
+      "message_key": "common.serial_no"
+    },
+    "id": {
+      "value": {
+        "type": "default:number"
+      },
+      "message_key": "common.office_id"
+    },
     "name_bn": {
       "value": {
-        "type": "default:string",
-        "max": 255
+        "type": "default:string"
       },
       "message_key": "common.name_bn"
     },
     "name_en": {
       "value": {
-        "type": "default:string",
-        "max": 255
+        "type": "default:string"
       },
       "message_key": "common.name_en"
+    },
+    "designation_bn": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.designation_bn"
+    },
+    "designation_en": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.designation_en"
+    },
+    "photo_caption_bn": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.photo_caption_bn"
+    },
+    "photo_caption_en": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.photo_caption_en"
+    },
+    "photo_action_link": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.photo_action_link"
+    },
+    "ministry_name_bn": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.ministry_name_bn"
+    },
+    "ministry_name_en": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.ministry_name_en"
+    },
+    "phone_office": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.phone_office"
+    },
+    "intercom": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.intercom"
+    },
+    "phone_home": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.phone_home"
+    },
+    "fax": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.fax"
+    },
+    "email": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.email"
+    },
+    "mobile": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.mobile"
+    },
+    "room_no": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.room_no"
+    },
+    "cv_caption_bn": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.cv_caption_bn"
+    },
+    "cv_caption_en": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.cv_caption_en"
+    },
+    "division_id": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.division"
+    },
+    "turn_off_right_sidebar": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.turn_off_right_sidebar"
+    },
+    "publish_to_latest_news": {
+      "value": {
+        "type": "default:string"
+      },
+      "message_key": "common.publish_to_latest_news"
     }
   }
 }

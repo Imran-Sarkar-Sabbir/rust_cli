@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 
 use serde_json::{Map, Value};
 
@@ -12,14 +12,14 @@ use super::{data_type::DataType, default_config::DefaultConfig, property::Proper
 pub struct Config {
     pub name: Name,
     pub pattern: HashMap<String, String>,
-    pub properties: HashMap<String, Property>,
+    pub properties: BTreeMap<String, Property>,
 }
 
 impl Config {
     pub fn from_json(default_config: DefaultConfig, config: Map<String, Value>) -> Config {
         let name = parse_obj(&config, "name").unwrap();
 
-        let mut properties: HashMap<String, Property> = HashMap::new();
+        let mut properties: BTreeMap<String, Property> = BTreeMap::new();
 
         match config.get("properties") {
             Some(json_properties) => {
